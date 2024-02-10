@@ -1,0 +1,196 @@
+.main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 6rem;
+  padding-bottom: 3rem;
+  min-height: 100vh;
+
+  nav {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: auto;
+    padding: 8px 24px;
+    width: 100%;
+    background: rgba(var(--card-rgb), 0.1);
+    border: 1px solid rgba(var(--card-border-rgb), 0.15);
+    border-left: none;
+    border-right: none;
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    .title {
+      margin: auto auto auto 0;
+    }
+    .links {
+      margin: auto 0 auto auto;
+      a {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  .moon {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: red;
+    z-index: 10;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    margin: 0 auto auto 0;
+    padding-top: 10vh;
+    h1 {
+      color: white;
+      font-size: 4rem;
+    }
+    p {
+      width: 30vw;
+    }
+    a {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 20px 0 auto auto;
+      background-color: rgba(
+        255,
+        255,
+        255,
+        0.2
+      ); /* Adjust transparency as needed */
+      color: #fff; /* Text color */
+      text-decoration: none; /* Remove underline */
+      border-radius: 20px; /* Adjust the border radius */
+      border: 2px solid transparent; /* Add border for the glass effect */
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); /* Adjust shadow color and intensity */
+      transition: all 0.3s ease; /* Add smooth transition effect */
+    }
+
+    a:hover {
+      background-color: rgba(
+        255,
+        255,
+        255,
+        0.3
+      ); /* Adjust transparency on hover */
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.4); /* Adjust shadow intensity on hover */
+    }
+  }
+
+  .grid {
+    position: relative;
+    margin: auto auto 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(25%, auto));
+    max-width: 100%;
+    width: var(--max-width);
+    height: auto;
+    z-index: 100;
+
+    .floatingText {
+      position: absolute;
+      top: -20px;
+      left: 32px;
+      color: white;
+    }
+  }
+
+  .card {
+    position: relative;
+    padding: 1rem 1.2rem;
+    border-radius: var(--border-radius);
+    background: rgba(var(--card-rgb), 0);
+    border: 1px solid rgba(var(--card-border-rgb), 0);
+    transition: 300ms;
+  }
+
+  .card span {
+    display: inline-block;
+    transition: transform 300ms;
+  }
+
+  .card h2 {
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+  }
+
+  .card p {
+    margin: 0;
+    opacity: 0.6;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    max-width: 30ch;
+    text-wrap: balance;
+  }
+}
+
+/* Enable hover only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    background: rgba(var(--card-rgb), 0.1);
+    border: 1px solid rgba(var(--card-border-rgb), 0.15);
+    backdrop-filter: blur(10px);
+  }
+
+  .card:hover span {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .card:hover span {
+    transform: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .content {
+    padding: 4rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    margin-bottom: 120px;
+    max-width: 320px;
+    text-align: center;
+  }
+
+  .card {
+    padding: 1rem 2.5rem;
+  }
+
+  .card h2 {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Tablet and Smaller Desktop */
+@media (min-width: 701px) and (max-width: 1120px) {
+  .grid {
+    grid-template-columns: repeat(2, 50%);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .logo {
+    filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}

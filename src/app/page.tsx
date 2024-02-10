@@ -1,45 +1,33 @@
+"use client"
+import { useEffect } from "react";
 import Image from "next/image";
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
+import Moon from "@/components/moon";
 
 export default function Home() {
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+      <nav>
+        <h2 className={styles.title}>Moon Village Association</h2> 
+        <div className={styles.links}>
+          <a href="">About</a>
+          <a href="">Built by Franklin Barto</a>
         </div>
+      </nav>
+      <div className={styles.moon}>
+        <Moon/>
       </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className={styles.hero}>
+        <span>Building Humanity's Future Beyond Earth</span>
+        <h1>Moon Habitat</h1>
+        <p>Venturing Beyond the Horizon, we embark on a bold expedition to explore and conquer new frontiers, pushing the boundaries of human knowledge and discovery.</p>
+        <a href="">Join the Mission <span>-&gt;</span></a>
       </div>
 
       <div className={styles.grid}>
+        <p className={styles.floatingText}>Stages</p>
         <a
           href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
           className={styles.card}
@@ -47,9 +35,9 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Docs <span>-&gt;</span>
+          Exploration <span>-&gt;</span>
           </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
+          <p> Send robotic missions to explore lunar terrain, identify resources, and assess potential landing sites.</p>
         </a>
 
         <a
@@ -59,9 +47,9 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Learn <span>-&gt;</span>
+          Infrastructure <span>-&gt;</span>
           </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
+          <p> Develop essential infrastructure such as habitats, power systems, and communication networks to support human presence</p>
         </a>
 
         <a
@@ -71,9 +59,9 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Templates <span>-&gt;</span>
+          Sustainability <span>-&gt;</span>
           </h2>
-          <p>Explore starter templates for Next.js.</p>
+          <p>Harness lunar resources like water ice and regolith to sustain life, produce fuel, and facilitate construction.</p>
         </a>
 
         <a
@@ -83,10 +71,10 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Deploy <span>-&gt;</span>
+          Human Settlement
           </h2>
           <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+            Establish permanent human settlements for scientific research, technological development, and as a gateway for deeper space exploration
           </p>
         </a>
       </div>

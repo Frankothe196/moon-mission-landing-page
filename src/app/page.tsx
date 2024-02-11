@@ -20,7 +20,7 @@ export default function Home() {
       </div>
 
       <div className={styles.hero}>
-        <span>Building Humanity's Future Beyond Earth</span>
+        <span>Building Humanity`s Future Beyond Earth</span>
         <h1>Moon Habitat</h1>
         <p>Venturing Beyond the Horizon, we embark on a bold expedition to explore and conquer new frontiers, pushing the boundaries of human knowledge and discovery.</p>
         <a href="">Join the Mission <span>-&gt;</span></a>

@@ -26,7 +26,7 @@ const Moon: React.FC = () => {
         const textureLoader = new THREE.TextureLoader();
         // const texture = textureLoader.load(moon);
         const texture = textureLoader.load(
-            '../moon/moon.jpg',
+            moon.src,
             // onLoad callback
             function(texture) {
                 console.log('Texture loaded successfully:', texture);
@@ -43,7 +43,7 @@ const Moon: React.FC = () => {
 
         // Load a bump map
         const bumpMap = textureLoader.load(
-            '../moon/moon_normal.png',
+            bump.src,
             // onLoad callback
             function(texture) {
                 console.log('Texture loaded successfully:', texture);

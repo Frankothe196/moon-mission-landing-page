@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+<img
+  src="app-screenshot.png"
+  alt="Alt text"
+  title="Space explorer dashboard"
+  style="display: inline-block; margin: 0 auto; max-width: 80%"/>
+
 ## Getting Started
 
 First, run the development server:

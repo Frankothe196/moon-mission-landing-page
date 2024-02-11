@@ -70,7 +70,7 @@
       text-decoration: none; /* Remove underline */
       border-radius: 20px; /* Adjust the border radius */
       border: 2px solid transparent; /* Add border for the glass effect */
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); /* Adjust shadow color and intensity */
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); /* Adjust shadow color and intensity */
       transition: all 0.3s ease; /* Add smooth transition effect */
     }
 
@@ -81,7 +81,7 @@
         255,
         0.3
       ); /* Adjust transparency on hover */
-      box-shadow: 0 0 40px rgba(255, 255, 255, 0.4); /* Adjust shadow intensity on hover */
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.5); /* Adjust shadow intensity on hover */
     }
   }
 

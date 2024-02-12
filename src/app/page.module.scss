@@ -157,6 +157,15 @@
 }
 @media (max-width: 640px) {
   //  Hide one item on the nav links to stop overlapping text
+  .main{
+    padding: 1rem;
+    text-align: center;
+    .hero{
+      width: 80%;
+      margin: 12px auto;
+    }
+  }
+
   nav {
     .links {
       a:nth-child(1){

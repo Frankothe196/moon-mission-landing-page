@@ -6,18 +6,25 @@ import bump from '../assets/moon/moon_normal.png'
 
 const Moon: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const sphereRef = useRef<any>(null);
+    const mouseRef = useRef<any>(null);
+    const sceneRef = useRef<any>(null);
+    const cameraRef = useRef<any>(null);
+    const raycasterRef = useRef<any>(null);
+    const previousMousePosition = useRef({ x: 0, y: 0 });
+    const isDragging = useRef(false);
 
     useEffect(() => {
         if (!canvasRef.current) return;
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        sceneRef.current = new THREE.Scene();
+        cameraRef.current = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, antialias: true });
         renderer.setPixelRatio( window.devicePixelRatio );
         renderer.setSize( window.innerWidth, window.innerHeight );
         renderer.setClearColor('#010101', 1)
 
-        camera.position.z = 5;
+        cameraRef.current.position.z = 5;
 
         // Create a sphere geometry
         const sphereGeometry = new THREE.SphereGeometry(3, 64, 64);
@@ -66,24 +73,24 @@ const Moon: React.FC = () => {
         });
 
         // Create a mesh with the geometry and material
-        const sphere = new THREE.Mesh(sphereGeometry, material1);
-        scene.add(sphere);
+        sphereRef.current = new THREE.Mesh(sphereGeometry, material1);
+        sceneRef.current.add(sphereRef.current);
 
         // Create a directional light
         const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
         directionalLight.position.set(1, 1, 1); // Set the initial position of the light
-        scene.add(directionalLight);
+        sceneRef.current.add(directionalLight);
 
         // Set the position and target of the light to point at the moon
         directionalLight.position.set(20, 5, 5); // Adjust the position of the light
-        directionalLight.target = sphere; // Set the target of the light to the moon
+        directionalLight.target = sphereRef.current; // Set the target of the light to the moon
 
         // // Add an ambient light to the scene
         // const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
         // scene.add(ambientLight);
 
         // Enable shadows for the moon and the directional light
-        sphere.castShadow = true;
+        sphereRef.current.castShadow = true;
         directionalLight.castShadow = true;
 
         // Set shadow properties for the directional light
@@ -92,23 +99,95 @@ const Moon: React.FC = () => {
         directionalLight.shadow.camera.near = 0.5; // default
         directionalLight.shadow.camera.far = 500; // default
 
+        // Raycaster
+        raycasterRef.current = new THREE.Raycaster();
+        mouseRef.current = new THREE.Vector2();
+
+
 
         const animate = () => {
             requestAnimationFrame(animate);
 
-            sphere.rotation.y += 0.0005;
+            sphereRef.current.rotation.y += 0.0005;
+            
 
-            renderer.render(scene, camera);
+            renderer.render(sceneRef.current, cameraRef.current);
         };
 
         animate();
 
-        return () => {
-            // Cleanup logic here if needed
-        };
-    }, []);
 
-    return <canvas ref={canvasRef} />;
+        // canvasRef.current.addEventListener('mousedown', handleMouseDown);
+        // canvasRef.current.addEventListener('mousemove', handleMouseMove);
+        // canvasRef.current.addEventListener('mouseup', handleMouseUp);
+    
+        // Resize handling
+        function handleResize() {
+            cameraRef.current.aspect = window.innerWidth / window.innerHeight;
+            cameraRef.current.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+    
+        window.addEventListener('resize', handleResize);
+
+            return () => {
+                window.removeEventListener('resize', handleResize);
+                // canvasRef.current?.removeEventListener('mousedown', handleMouseDown);
+                // canvasRef.current?.removeEventListener('mousemove', handleMouseMove);
+                // canvasRef.current?.removeEventListener('mouseup', handleMouseUp);
+                // canvasRef.current?.removeChild(renderer.domElement);
+            };
+        }, []);
+
+    
+        // Mouse event handlers
+        function handleMouseDown(event:any) {
+            console.log('mouse')
+            isDragging.current = true;
+            previousMousePosition.current = {
+            x: event.clientX,
+            y: event.clientY,
+            };
+        }
+
+        function handleMouseMove(event:any) {
+            if (isDragging.current) {
+              const deltaMove = {
+                x: event.clientX - previousMousePosition.current.x,
+                y: event.clientY - previousMousePosition.current.y,
+              };
+      
+              sphereRef.current.rotation.y += deltaMove.x * 0.001;
+      
+              previousMousePosition.current = {
+                x: event.clientX,
+                y: event.clientY,
+              };
+            }
+      
+            // Update mouse position for raycasting
+            mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      
+            // Perform raycasting
+            raycasterRef.current.setFromCamera(mouseRef.current, cameraRef.current);
+            const intersects = raycasterRef.current.intersectObjects(sceneRef.current.children, true);
+      
+            // Change cursor style if intersecting with the sphere
+            if (intersects.length > 0) {
+              document.body.style.cursor = 'grab';
+            } else {
+              document.body.style.cursor = 'auto';
+            }
+          }
+      
+
+        function handleMouseUp() {
+            isDragging.current = false;
+        }
+    
+
+    return <canvas onPointerDown={handleMouseDown} onPointerMove={handleMouseMove} onPointerUp={handleMouseUp} ref={canvasRef} />;
 };
 
 export default Moon;
